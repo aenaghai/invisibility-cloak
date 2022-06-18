@@ -3,13 +3,11 @@ import numpy as np
 import time
 import cv2
 
-cap=cv2.VideoCapture(0) #capturing from device webcam
+cap=cv2.VideoCapture(0) 
 #so that the video can be captured in the first 2 seconds after running the program
 time.sleep(2)
 bg=0
-
 bg = cv2.flip(bg,1)
-
 #to capture the image in first 2 seconds
 for i in range(50):
     ret,bg=cap.read()
@@ -21,12 +19,11 @@ while(cap.isOpened()):
         break
     #converting to hsv format
     hsv=cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
-    #Now we have to take the values of the red color cloth to take any values and change till then the red color will start to disappear from the frame
+    #taking the values of the red color cloth to take any values and change till then the red color will start to disappear from the frame
     #setting the cloak values and creating masks :)
     lowerRedValue=np.array([0,120,70])
     upperRedValue=np.array([10,255,255])
     maskOne=cv2.inRange(hsv,lowerRedValue,upperRedValue)
-    
     lowerRedValue=np.array([170,120,70])
     upperRedValue=np.array([180,255,255])
     maskTwo=cv2.inRange(hsv,lowerRedValue,upperRedValue)
@@ -52,16 +49,3 @@ while(cap.isOpened()):
     
 cap.release()
 cv2.destroyAllWindows()
-
-
-'''
-Algorithm:
-
-firstly Import the Libraries that we can use to make the project.
-using a webcam to capture the live feed of the person and the background.
-Capturing the background firstly we have to capture the background so that if the cloth comes in it shows the background.
-Setting the values for the Cloak that the cloth we selected we have to now set the values for it.
-making 2 masks and applying them to the frame.
-combining the mask and showing it simultaneously
-Displaying the final output
-'''
